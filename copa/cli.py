@@ -1,16 +1,15 @@
-"""Console script for copa."""
+"""Console script for copa"""
 import sys
-import click
+import typer
 
+app = typer.Typer()
 
-@click.command()
-def main(args=None):
+@app.command()
+def main():
     """Console script for copa."""
-    click.echo("Replace this message by putting your code into "
+    typer.echo("Replace this message by putting your code into "
                "copa.cli.main")
-    click.echo("See click documentation at https://click.palletsprojects.com/")
-    return 0
-
+    typer.echo("See typer documentation at https://typer.tiangolo.com/")
 
 if __name__ == "__main__":
-    sys.exit(main())  # pragma: no cover
+    app()

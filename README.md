@@ -1,4 +1,4 @@
-# COPA 
+# copa 
 
 Configure, Orchestrate and Provision Applications
 
@@ -13,7 +13,7 @@ Configure, Orchestrate and Provision Applications
 
 `copa` is aware of environments that it can install to including:
 1. Provisioning
-    - Infrastructure Providers (e.g. Locally [Proxmox](https://github.com/Telmate/terraform-provider-proxmox) or [VMWare](https://registry.terraform.io/providers/hashicorp/vsphere/latest). Remote: Amazon Web Services, Google Cloud Platform etc. see [supported providers](https://registry.terraform.io/search/providers)
+    - Infrastructure Providers (e.g. Locally [Proxmox](https://github.com/Telmate/terraform-provider-proxmox) or [VMWare](https://registry.terraform.io/providers/hashicorp/vsphere/latest). Remote: Amazon Web Services, Google Cloud Platform etc. see [supported providers](https://registry.terraform.io/search/providers))
 2. Orchestrating
     - Linux servers (VMs, cloud instances) 
 3. Configuration Management

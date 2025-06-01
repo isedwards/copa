@@ -6,14 +6,16 @@ readme = "README.md"
 authors = [
   { name="Ian Edwards", email="ian@myacorn.com" },
 ]
-license = { text = "MIT" }
+license = "MIT"
 requires-python = ">=3.8"
 dependencies = [
-  "typer~=0.9.0"
+  "ansible",
+  "ansible-runner",
+  "typer~=0.16.0",
+  "textual",
 ]
 classifiers = [
   "Programming Language :: Python :: 3",
-  "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
 ]
 

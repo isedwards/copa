@@ -35,15 +35,19 @@ from typing import Optional
 from copa import get_or_create_config_path, TOOL_NAME
 
 
-def setup_logging(verbosity: int, log_to_file: Optional[Path] = None) -> None:
+def setup_logging(verbosity: int = 0, log_to_file: Optional[Path] = None) -> None:
     """Configure logging for the application.
     
-    Sets up both console and file logging handlers with appropriate log levels
+    Sets up either console or file logging handlers with appropriate log levels
     based on verbosity. File logging always logs at DEBUG level, while console
     logging respects the verbosity setting.
     
     Args:
-        verbosity: Logging verbosity level. 0 for WARNING, 1 for INFO, 2+ for DEBUG.
+        verbosity: Logging verbosity level.
+            0 (default): ERROR and CRITICAL only
+            1: WARNING, ERROR, and CRITICAL
+            2: INFO, WARNING, ERROR, and CRITICAL
+            3: DEBUG, INFO, WARNING, ERROR, and CRITICAL
         log_to_file: Path to the log file. If None, logs to stderr. Defaults to None.
         
     Side Effects:
@@ -52,16 +56,19 @@ def setup_logging(verbosity: int, log_to_file: Optional[Path] = None) -> None:
         - Overwrites any existing logging configuration
         
     Example:
-        >>> setup_logging(verbosity=1)  # INFO level, logs to stderr
-        >>> setup_logging(verbosity=2, log_to_file=Path('/tmp/myapp.log'))  # DEBUG level, logs to file
+        >>> setup_logging()  # ERROR and CRITICAL to stderr
+        >>> setup_logging(verbosity=2)  # INFO and above to stderr
+        >>> setup_logging(verbosity=3, log_to_file=Path('/tmp/myapp.log'))  # DEBUG and above to file
     """
     # Determine console log level based on verbosity
-    if verbosity >= 2:
+    if verbosity >= 3:
         console_level = logging.DEBUG
-    elif verbosity == 1:
+    elif verbosity == 2:
         console_level = logging.INFO
-    else:
+    elif verbosity == 1:
         console_level = logging.WARNING
+    else:
+        console_level = logging.ERROR
     
     # Create handlers list
     handlers: list[logging.Handler] = []

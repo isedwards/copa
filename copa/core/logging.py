@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+
 """Logging configuration module for the application.
 
 Set up logging once at the app entry point using setup_logging(), 
@@ -33,7 +35,7 @@ from typing import Optional
 from copa import get_or_create_config_path, TOOL_NAME
 
 
-def setup_logging(verbosity: int, log_to_file: bool = True) -> None:
+def setup_logging(verbosity: int, log_to_file: Optional[Path] = None) -> None:
     """Configure logging for the application.
     
     Sets up both console and file logging handlers with appropriate log levels
@@ -42,16 +44,16 @@ def setup_logging(verbosity: int, log_to_file: bool = True) -> None:
     
     Args:
         verbosity: Logging verbosity level. 0 for WARNING, 1 for INFO, 2+ for DEBUG.
-        log_to_file: Whether to enable file logging. Defaults to True.
+        log_to_file: Path to the log file. If None, logs to stderr. Defaults to None.
         
     Side Effects:
-        - Creates log directory if it doesn't exist
+        - Creates log directory if it doesn't exist (if file logging enabled)
         - Configures the root logger with console and/or file handlers
         - Overwrites any existing logging configuration
         
     Example:
-        >>> setup_logging(verbosity=1)  # INFO level to console, DEBUG to file
-        >>> setup_logging(verbosity=2, log_to_file=False)  # DEBUG to console only
+        >>> setup_logging(verbosity=1)  # INFO level, logs to stderr
+        >>> setup_logging(verbosity=2, log_to_file=Path('/tmp/myapp.log'))  # DEBUG level, logs to file
     """
     # Determine console log level based on verbosity
     if verbosity >= 2:
@@ -64,19 +66,19 @@ def setup_logging(verbosity: int, log_to_file: bool = True) -> None:
     # Create handlers list
     handlers: list[logging.Handler] = []
     
-    # Console handler
-    console_handler = logging.StreamHandler()
-    console_handler.setLevel(console_level)
-    console_handler.setFormatter(logging.Formatter(
-        "%(levelname)s: %(message)s"
-    ))
-    handlers.append(console_handler)
-    
-    # File handler (if enabled)
-    if log_to_file:
-        log_path = get_or_create_config_path() / f"{TOOL_NAME}.log"
+    if log_to_file is None:
+        # Console handler only
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(console_level)
+        console_handler.setFormatter(logging.Formatter(
+            "%(levelname)s: %(message)s"
+        ))
+        handlers.append(console_handler)
+        log_path = None
+    else:
+        # File handler only
+        log_path = Path(log_to_file)
         log_path.parent.mkdir(parents=True, exist_ok=True)
-        
         file_handler = logging.FileHandler(log_path)
         file_handler.setLevel(logging.DEBUG)  # Always log everything to file
         file_handler.setFormatter(logging.Formatter(
@@ -94,7 +96,7 @@ def setup_logging(verbosity: int, log_to_file: bool = True) -> None:
     # Log initial setup message
     logger = logging.getLogger(__name__)
     logger.debug(f"Logging configured with verbosity={verbosity}, log_to_file={log_to_file}")
-    if log_to_file:
+    if log_path is not None:
         logger.debug(f"Log file: {log_path}")
 
 

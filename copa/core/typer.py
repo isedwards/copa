@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 import typer
 from typing import Dict, Any, List
 

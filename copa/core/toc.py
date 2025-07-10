@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """ Read toc.yml - currently assumes toc.yml is in the copa package """
 import logging
 import yaml

@@ -1,29 +1,19 @@
-""" copa version < 1.0 only includes a CLI. TUI available from version 1.0+ """
-from .cli import app
-
-
-def main():
-    # Alls request currently go to the CLI
-    app()
-
-
-if __name__ == "__main__":
-    main()
-
-
+# SPDX-License-Identifier: MIT
 """copa launcher module.
 
 This module launches either the CLI or the TUI interface for copa.
-the availability Versions < 1.0 only support CLI, 
-while TUI is available from version 1.0+.
+NOTE: Versions < 1.0 only support CLI
 """
-
 import logging
 import sys
-from .cli import app as cli_app
-from .tui import run_tui  # Assume TUI entry point is called `run_tui`
 
-logging.basicConfig(level=logging.INFO)
+# from .cli import app as cli_app
+# from .tui import run_tui  # Assume TUI entry point is called `run_tui`
+from copa.core.logging import setup_logging
+
+
+# Future copa versions will support sentry and TUI logging
+setup_logging(verbosity=logging.DEBUG, log_to_file=None)
 logger = logging.getLogger(__name__)
 
 
@@ -38,12 +28,10 @@ def main() -> None:
         - Writes logs to the configured logging output.
     """
     if len(sys.argv) > 1:
-        logger.info("Launching CLI mode...")
-        cli_app()
+        logger.debug("Launching CLI mode...")
+        #cli_app()
     else:
-        logger.info("No command-line arguments detected. Launching TUI mode...")
-        run_tui()
-
-
-if __name__ == "__main__":
-    main()
+        #logger.debug("No command-line arguments detected. Launching TUI mode...")
+        #run_tui()
+        logger.debug("copa <1.0 does not support TUI. Launching CLI mode...")
+        #cli_app()

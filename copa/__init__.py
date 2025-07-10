@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """
 copa: Configure, Orchestrate and Provision Applications
 

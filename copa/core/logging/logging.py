@@ -1,5 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
-
+# SPDX-License-Identifier: MIT
 """Logging configuration module for the application.
 
 Set up logging once at the app entry point using setup_logging(), 
@@ -28,6 +27,7 @@ Note:
 
     Do not call logging.basicConfig() or reconfigure logging outside the entry point.
 """
+import argparse
 import logging
 from pathlib import Path
 from typing import Optional
@@ -35,6 +35,7 @@ from typing import Optional
 from copa import get_or_create_config_path, TOOL_NAME
 
 
+# TODO: Future copa versions will support sentry and TUI logging
 def setup_logging(verbosity: int = 0, log_to_file: Optional[Path] = None) -> None:
     """Configure logging for the application.
     
@@ -51,8 +52,8 @@ def setup_logging(verbosity: int = 0, log_to_file: Optional[Path] = None) -> Non
         log_to_file: Path to the log file. If None, logs to stderr. Defaults to None.
         
     Side Effects:
-        - Creates log directory if it doesn't exist (if file logging enabled)
         - Configures the root logger with console and/or file handlers
+        - Creates log directory if it doesn't exist (if file logging enabled)
         - Overwrites any existing logging configuration
         
     Example:
@@ -95,9 +96,9 @@ def setup_logging(verbosity: int = 0, log_to_file: Optional[Path] = None) -> Non
     
     # Configure root logger
     logging.basicConfig(
-        level=logging.DEBUG,  # Set to DEBUG so handlers can filter as needed
+        level=logging.DEBUG,
         handlers=handlers,
-        force=True  # Python 3.8+ - reconfigure even if already configured
+        force=True,  # Allow the logging configuration to be updated
     )
     
     # Log initial setup message

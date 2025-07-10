@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Console script for copa"""
 import sys
 import typer
@@ -7,28 +8,8 @@ from copa.core.toc import ConfigLoadError, load_toc
 from copa.core.typer import register_commands
 
 
-'''
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--verbose", action="store_true")
-    args = parser.parse_args()
-
-    setup_logging(verbose=args.verbose)
-
-
-        try:
-        load_toc()
-    except ConfigLoadError as e:
-        print("Error: Failed to load configuration.", file=sys.stderr)
-        if not args.verbose:
-            print("Run with --verbose for more details.", file=sys.stderr)
-        sys.exit(1)
-
-        ```
-Error: Failed to load configuration file.
-See the log file at ~/.copa/copa.log or run with --verbose for more details.
-        ```
-
-
+# Error: Failed to load configuration file.
+# See the log file at ~/.copa/copa.log or run with --verbose for more details.
 
 import logging
 import typer

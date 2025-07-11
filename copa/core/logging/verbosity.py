@@ -9,7 +9,6 @@
 """
 import argparse
 import logging
-import sys
 
 
 def get_logging_level(args: list[str]) -> int:
@@ -97,27 +96,3 @@ def get_logging_level(args: list[str]) -> int:
         return logging.WARNING
     else:
         return logging.ERROR
-
-
-if __name__ == "__main__":
-    # Test examples
-    import logging
-    test_cases = [
-        (['-v'], logging.WARNING),
-        (['-vv'], logging.INFO),
-        (['-vvv'], logging.DEBUG),
-        (['--verbosity=info'], logging.INFO),
-        (['--verbosity=debug'], logging.DEBUG),
-        (['--verbosity=warning'], logging.WARNING),
-        (['--verbosity=error'], logging.ERROR),
-        (['--verbosity=2'], logging.INFO),
-        (['--verbosity=5'], logging.DEBUG),  # Clamped to max
-        (['-v', '--verbosity=debug'], logging.DEBUG),  # Level overrides count
-        (['--verbosity=invalid'], logging.ERROR),  # Invalid defaults to ERROR
-        ([], logging.ERROR),  # Default
-    ]
-    
-    for args, expected in test_cases:
-        result = get_logging_level(args)
-        status = "✓" if result == expected else "✗"
-        print(f"{status} {args} -> {result} (expected {expected})")

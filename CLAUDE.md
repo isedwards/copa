@@ -34,6 +34,7 @@ The application uses a dynamic command registration system:
 - Use British English for comments etc. (but use American English in code)
 - Code must run on Python 3.8 (and above)
 - All code must have type definitions and Google-style docstrings
+- Follow black code style with exactly one newline at the end of each file
 - All functions with side effects must explicitly document them in their docstrings (file I/O, network calls, state changes, etc.)
 - Code should have optimal logging. CRITICAL logs should be used for unexpected crashes that will terminate the application
 - All Python files must have begin with the following licence line:

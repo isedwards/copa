@@ -7,6 +7,25 @@ Configure, Orchestrate and Provision Applications
 
 [![python3](https://img.shields.io/pypi/pyversions/copa)](https://python3statement.org/#sections50-why)
 
+## Installation
+
+### For Users
+
+Install from the Python Package Index (PyPI)
+
+```bash
+pipx install copa
+```
+
+### For Developers
+
+Developers may wish to clone the latest version from GitHub and install this local version in editable (-e) mode.
+
+```bash
+git clone https://github.com/open-climate/copa.git
+pip install -e .[dev]
+```
+
 ## About
 
 `copa` is a single codebase, implemented using the Python Typer and Textual packages, that provides a Command Line Interface (CLI), Text User Interface (TUI) and Web UI for [provisioning](https://www.redhat.com/en/topics/automation/what-is-provisioning) (Terraform), [orchestrating](https://www.redhat.com/en/topics/automation/what-is-orchestration) (Ansible) and configuring software on Linux servers.

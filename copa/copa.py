@@ -13,7 +13,7 @@ from copa.core.logging import get_logging_level, setup_logging
 
 
 # Setup initial logging until further config is determined
-setup_logging(verbosity=get_logging_level(), log_to_file=None)
+setup_logging(verbosity=get_logging_level(sys.argv), log_to_file=None)
 logger = logging.getLogger(__name__)
 
 

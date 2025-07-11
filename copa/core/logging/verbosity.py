@@ -12,36 +12,36 @@ import logging
 import sys
 
 
-def get_logging_level(args: list[str] = None) -> int:
+def get_logging_level(args: list[str]) -> int:
     """Get logging level from command line arguments.
+
+    ERROR and CRITICAL levels are always reported. Additional logs can be 
+    returned by specifying verbosity options:
     
-    Supports multiple verbosity formats:
-    - Count-based: -v, -vv, -vvv (returns INFO, DEBUG, DEBUG)
-    - Level-based: --verbosity=info, --verbosity=debug (returns corresponding level)
-    - Numeric: --verbosity=2 (returns INFO)
+    - Count-based: -v (≥WARNING), -vv (≥INFO), -vvv (≥DEBUG)
+    - Level-based: --verbosity=info, --verbosity=debug  
+    - Numeric: --verbosity=2 (equivalent to ≥INFO)
     
     Args:
-        args: Command line arguments to parse. If None, uses sys.argv[1:]
+        args: Command line arguments to parse.
         
     Returns:
-        int: Python logging level constant (ERROR=40, WARNING=30, INFO=20, DEBUG=10)
+        Python logging level constant. ERROR (40) by default, WARNING (30), 
+        INFO (20), or DEBUG (10) based on verbosity settings.
         
     Examples:
         >>> get_logging_level(['-v'])
-        30
-        >>> get_logging_level(['-vv'])
-        20
+        logging.WARNING
+        >>> get_logging_level(['-vv']) 
+        logging.INFO
         >>> get_logging_level(['--verbosity=info'])
-        20
+        logging.INFO
         >>> get_logging_level(['--verbosity=debug'])
-        10
+        logging.DEBUG
         >>> get_logging_level(['--verbosity=2'])
-        20
-    """
-    if args is None:
-        args = sys.argv[1:]
-    
-    # Level name to logging constant mapping
+        logging.INFO
+    """    
+    # Users may specify verbosity levels using either count-based or the following level-based arguments.
     level_map = {
         'error': logging.ERROR,
         'warning': logging.WARNING,

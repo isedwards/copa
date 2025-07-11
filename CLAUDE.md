@@ -31,6 +31,7 @@ The application uses a dynamic command registration system:
 
 ## Development
 
+- Use British English for comments etc. (but use American English in code)
 - Code must run on Python 3.8 (and above)
 - All code must have type definitions and Google-style docstrings
 - All functions with side effects must explicitly document them in their docstrings (file I/O, network calls, state changes, etc.)

@@ -36,7 +36,7 @@ from copa import get_or_create_config_path, TOOL_NAME
 
 
 # TODO: Future copa versions will support sentry and TUI logging
-def setup_logging(verbosity: int = 0, log_to_file: Optional[Path] = None) -> None:
+def setup_logging(verbosity: int = logging.ERROR, log_to_file: Optional[Path] = None) -> None:
     """Configure logging for the application.
     
     Sets up either console or file logging handlers with appropriate log levels
@@ -44,11 +44,8 @@ def setup_logging(verbosity: int = 0, log_to_file: Optional[Path] = None) -> Non
     logging respects the verbosity setting.
     
     Args:
-        verbosity: Logging verbosity level.
-            0 (default): ERROR and CRITICAL only
-            1: WARNING, ERROR, and CRITICAL
-            2: INFO, WARNING, ERROR, and CRITICAL
-            3: DEBUG, INFO, WARNING, ERROR, and CRITICAL
+        verbosity: Python logging level constant (logging.DEBUG, logging.INFO, etc.).
+            Defaults to logging.ERROR for ERROR and CRITICAL only.
         log_to_file: Path to the log file. If None, logs to stderr. Defaults to None.
         
     Side Effects:
@@ -58,18 +55,11 @@ def setup_logging(verbosity: int = 0, log_to_file: Optional[Path] = None) -> Non
         
     Example:
         >>> setup_logging()  # ERROR and CRITICAL to stderr
-        >>> setup_logging(verbosity=2)  # INFO and above to stderr
-        >>> setup_logging(verbosity=3, log_to_file=Path('/tmp/myapp.log'))  # DEBUG and above to file
+        >>> setup_logging(verbosity=logging.INFO)  # INFO and above to stderr
+        >>> setup_logging(verbosity=logging.DEBUG, log_to_file=Path('/tmp/myapp.log'))  # DEBUG and above to file
     """
-    # Determine console log level based on verbosity
-    if verbosity >= 3:
-        console_level = logging.DEBUG
-    elif verbosity == 2:
-        console_level = logging.INFO
-    elif verbosity == 1:
-        console_level = logging.WARNING
-    else:
-        console_level = logging.ERROR
+    # Use the verbosity level directly as it's already a logging constant
+    console_level = verbosity
     
     # Create handlers list
     handlers: list[logging.Handler] = []

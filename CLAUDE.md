@@ -37,6 +37,7 @@ The application uses a dynamic command registration system:
 - Code should have optimal logging. CRITICAL logs should be used for unexpected crashes that will terminate the application
 - All Python files must have begin with the following licence line:
     # SPDX-License-Identifier: MIT 
+- Avoid text that credits AI tools in the code and commit messages
 
 ### Development Commands
 

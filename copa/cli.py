@@ -1,9 +1,10 @@
 # SPDX-License-Identifier: MIT
 """Console script for copa"""
+import logging
 import sys
 import typer
 
-from copa.core.logging import setup_logging
+from copa.core.logging import get_logging_level, setup_logging
 from copa.core.toc import ConfigLoadError, load_toc
 from copa.core.typer import register_commands
 
@@ -11,28 +12,7 @@ from copa.core.typer import register_commands
 # Error: Failed to load configuration file.
 # See the log file at ~/.copa/copa.log or run with --verbose for more details.
 
-import logging
-import typer
-
 app = typer.Typer()
-
-def setup_logging(verbosity: int):
-    # Map verbosity level to logging level
-    if verbosity >= 2:
-        level = logging.DEBUG
-    elif verbosity == 1:
-        level = logging.INFO
-    else:
-        level = logging.WARNING
-
-    # Set up logging to console + optional file
-    logging.basicConfig(
-        level=level,
-        format="%(asctime)s [%(levelname)s] %(message)s",
-        handlers=[
-            logging.StreamHandler()  # console (stderr)
-        ]
-    )
 
 @app.command()
 def run(
@@ -43,7 +23,15 @@ def run(
         help="Increase verbosity (-v, -vv for more detail)"
     )
 ):
-    setup_logging(verbosity)
+    # Convert count-based verbosity to logging level
+    if verbosity >= 2:
+        level = logging.DEBUG
+    elif verbosity == 1:
+        level = logging.INFO
+    else:
+        level = logging.WARNING
+    
+    setup_logging(verbosity=level)
 
     logger = logging.getLogger(__name__)
     logger.debug("This is a debug message.")
@@ -53,17 +41,8 @@ def run(
 
     typer.echo("Command completed.")
 
-    
-    python cli.py run          # Only warning and error messages
-python cli.py run -v       # Info and above
-python cli.py run -vv      # Debug and above
-
-
-
-'''
-
+# Setup initial logging
 setup_logging()
-
 
 app = typer.Typer()
 

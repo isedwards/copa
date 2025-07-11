@@ -9,11 +9,11 @@ import sys
 
 # from .cli import app as cli_app
 # from .tui import run_tui  # Assume TUI entry point is called `run_tui`
-from copa.core.logging import setup_logging
+from copa.core.logging import get_logging_level, setup_logging
 
 
-# Future copa versions will support sentry and TUI logging
-setup_logging(verbosity=logging.DEBUG, log_to_file=None)
+# Setup initial logging until further config is determined
+setup_logging(verbosity=get_logging_level(), log_to_file=None)
 logger = logging.getLogger(__name__)
 
 

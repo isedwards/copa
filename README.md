@@ -38,9 +38,12 @@ pip install -e .[dev]
 3. Configuration Management
     - Modifing configuration for nginx, django etc.
 
+`copa` attempts to be as minimal as reasonably possible to make auditing easier.
+
 ---
 *Powered by:*
 - [Terraform](https://developer.hashicorp.com/terraform) for [server provisioning](https://www.redhat.com/en/topics/automation/what-is-provisioning)
 - [Ansible](https://docs.ansible.com/) for [server orchestration](https://www.redhat.com/en/topics/automation/what-is-orchestration)
-- [Textualize](https://www.textualize.io/) (MIT) - An application framework for CLI, TUI and WebUI in a single codebase
+- [Typer](https://github.com/fastapi/typer) (MIT) - 
+- [Textual](https://github.com/Textualize/textual) (MIT) - An application framework for building terminal user interfaces (TUI) and web user interfaces (WebUI) from the same Python codebase
 - [pipx](https://pipx.pypa.io/stable/) - A way to install Python CLI's as a tool in a contained environment

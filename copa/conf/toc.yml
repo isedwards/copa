@@ -2,7 +2,7 @@ version: "0.1.1"
 
 commands:
   - install:
-    - app: install/app.yml
+    - app: install/app.yml, Install and configure application
     - app-stack:
         app1: install/app-stack/app1.yml
         app2: install/app-stack/app2.py

@@ -7,9 +7,10 @@ NOTE: Versions < 1.0 only support CLI
 import logging
 import sys
 
-# from .cli import app as cli_app
-# from .tui import run_tui  # Assume TUI entry point is called `run_tui`
+from copa.cli import init_cli, app as cli_app
+# from copa.tui import init_tui, app as tui_app
 from copa.core.logging import get_logging_level, setup_logging
+from copa.core.toc import ConfigLoadError, load_toc
 
 
 # Setup initial logging until further config is determined
@@ -20,18 +21,25 @@ logger = logging.getLogger(__name__)
 def main() -> None:
     """Entry point for Copa.
 
-    Launches the TUI if no command-line arguments are passed (i.e., only the script 
-    name is present in sys.argv). Otherwise, defaults to the CLI interface.
-
-    Side Effects:
-        - May launch a CLI or TUI session in the terminal.
-        - Writes logs to the configured logging output.
+    Loads configuration from toc.yml and launches the TUI if no command-line arguments 
+    are passed (i.e., only the script name is present in sys.argv). Otherwise, defaults 
+    to the CLI interface.
     """
+    try:
+        config = load_toc()
+        logger.debug("Configuration loaded successfully")
+    except ConfigLoadError as e:
+        logger.error(f"Failed to load configuration: {e}")
+        sys.exit(1)
+    
     if len(sys.argv) > 1:
         logger.debug("Launching CLI mode...")
-        #cli_app()
+        init_cli(config)
+        cli_app()
     else:
-        #logger.debug("No command-line arguments detected. Launching TUI mode...")
-        #run_tui()
-        logger.debug("copa <1.0 does not support TUI. Launching CLI mode...")
-        #cli_app()
+        # logger.debug("No command-line arguments detected. Launching TUI mode...")
+        # init_tui(config)
+        # tui_app()
+        logger.debug("copa <1.0 does not support TUI. Returning CLI help instead.")
+        init_cli(config)
+        cli_app(["--help"])

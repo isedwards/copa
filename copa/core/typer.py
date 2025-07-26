@@ -5,13 +5,24 @@ from typing import Dict, Any, List
 from copa.core.execute import run_ansible_playbook, run_python_function
 
 
-def create_command_handler(target: str):
-    """Create a command handler for either Ansible playbook or Python function."""
+def create_command_handler(target: str, help_text: str = None):
+    """Create a command handler for either Ansible playbook or Python function.
+    
+    Args:
+        target: Path to playbook or module.function reference
+        help_text: Optional help text for the command
+    """
     def handler():
         if target.endswith('.yml') or target.endswith('.yaml'):
             run_ansible_playbook(target)
         else:
             run_python_function(target)
+    
+    # Set docstring for help display (since function is dynamically created, 
+    # we can't use a normal docstring and must assign to __doc__ instead)
+    if help_text:
+        handler.__doc__ = help_text
+    
     return handler
 
 
@@ -25,7 +36,12 @@ def register_commands(app: typer.Typer, commands: List[Dict[str, Any]], prefix: 
 
             if isinstance(cmd_value, str):
                 # Direct command pointing to a file or function
-                handler = create_command_handler(cmd_value)
+                # Parse optional help text after comma
+                parts = cmd_value.split(',', 1)
+                target = parts[0].strip()
+                help_text = parts[1].strip() if len(parts) > 1 else None
+                
+                handler = create_command_handler(target, help_text)
                 app.command(name=cmd_name)(handler)
 
             elif isinstance(cmd_value, list):

@@ -13,25 +13,35 @@ class ConfigLoadError(Exception):
     pass
 
 
-def load_toc() -> dict:
+def load_toc(config_data: dict = None, config_path: Path = None) -> dict:
     """
-    Load the 'toc.yml' file from the 'conf' directory inside the 'copa' package.
+    Load TOC configuration from data, custom path, or default location.
+
+    Args:
+        config_data: Optional configuration dictionary to use directly
+        config_path: Optional custom path to toc.yml file
 
     Returns:
-        dict: Parsed YAML contents of toc.yml
+        dict: Configuration dictionary
 
     Raises:
         FileNotFoundError: If the file is missing.
         yaml.YAMLError: If the file cannot be parsed.
     """
-    toc_path: Path = files("copa") / "conf" / "toc.yml"
-    logger.debug(f"Attempting to load TOC from: {toc_path}")
+    if config_data is not None:
+        logger.debug("Using provided config data")
+        return config_data
+    
+    if config_path is None:
+        config_path = files("copa") / "conf" / "toc.yml"
+    
+    logger.debug(f"Attempting to load TOC from: {config_path}")
 
-    if not toc_path.is_file():
+    if not config_path.is_file():
         raise FileNotFoundError("Could not find 'conf/toc.yml' in the 'copa' package.")
 
     try:
-        with toc_path.open("r", encoding="utf-8") as f:
+        with config_path.open("r", encoding="utf-8") as f:
             return yaml.safe_load(f) or {}
     except yaml.YAMLError as e:
         raise yaml.YAMLError(f"Failed to parse toc.yml: {e}")

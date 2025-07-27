@@ -18,7 +18,6 @@ copa <command> <subcommand> [options]
 ### Global Options
 
 - `-v, --verbose`: Increase verbosity (can be used multiple times)
-- `-q, --quiet`: Decrease verbosity
 - `--help`: Show help information
 
 ### Verbosity Levels

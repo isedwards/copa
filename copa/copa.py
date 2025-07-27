@@ -25,6 +25,12 @@ def main() -> None:
     are passed (i.e., only the script name is present in sys.argv). Otherwise, defaults 
     to the CLI interface.
     """
+    # Warn about EOL Python versions
+    if sys.version_info < (3, 9):
+        logger.error(f"Python {sys.version_info.major}.{sys.version_info.minor} is end-of-life. Please upgrade to Python 3.10+")
+    elif sys.version_info < (3, 10):
+        logger.warning(f"Python {sys.version_info.major}.{sys.version_info.minor} reaches end-of-life in October 2025. Consider upgrading to Python 3.10+")
+    
     try:
         config = load_toc()
         logger.debug("Configuration loaded successfully")

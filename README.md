@@ -37,7 +37,7 @@ Developers may wish to clone the latest version from GitHub and install this loc
 
 ```bash
 git clone https://github.com/open-climate/copa.git
-pip install -e .[dev,docs]
+pip install -e ./copa[dev,docs]
 ```
 
 To execute all tests run: `pytest`

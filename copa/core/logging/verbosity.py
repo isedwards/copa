@@ -9,9 +9,10 @@
 """
 import argparse
 import logging
+from typing import List
 
 
-def get_logging_level(args: list[str]) -> int:
+def get_logging_level(args: List[str]) -> int:
     """Get logging level from command line arguments.
 
     ERROR and CRITICAL levels are always reported. Additional logs can be 

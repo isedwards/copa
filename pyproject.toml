@@ -1,6 +1,6 @@
 [project]
 name = "copa"
-version = "0.1.1"
+version = "0.1.2"
 description = "Configure, Orchestrate and Provision Applications"
 readme = "README.md"
 authors = [
@@ -21,7 +21,7 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest"]
+dev = ["pytest", "build", "twine"]
 docs = ["mkdocs-material"]
 
 [project.scripts]

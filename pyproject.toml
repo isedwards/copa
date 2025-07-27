@@ -1,47 +1,38 @@
 [project]
-name = "COPA"
-version = "0.1.0"
-description = "Configure/Orchestrate/Provision Applications"
+name = "copa"
+version = "0.1.1"
+description = "Configure, Orchestrate and Provision Applications"
 readme = "README.md"
 authors = [
   { name="Ian Edwards", email="ian@myacorn.com" },
 ]
-license = { text = "MIT" }
+license = "MIT"
 requires-python = ">=3.8"
 dependencies = [
-  # your runtime deps
+  "ansible",
+  "ansible-runner",
+  "pyyaml",
+  "textual",
+  "typer~=0.16.0",
 ]
 classifiers = [
   "Programming Language :: Python :: 3",
-  "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
 ]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+docs = ["mkdocs-material"]
+
+[project.scripts]
+copa = "copa.copa:main"
 
 [build-system]
 requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
-[tool.black]
-line-length = 88
-target-version = ['py36', 'py37', 'py38']
-include = '\.pyi?$'
-exclude = '''
+[tool.setuptools]
+packages = ["copa"]
 
-(
-  /(
-      \.eggs         # exclude a few common directories in the
-    | \.git          # root of the project
-    | \.hg
-    | \.mypy_cache
-    | \.tox
-    | \.venv
-    | _build
-    | buck-out
-    | build
-    | (.*)/migrations
-    | dist
-  )/
-)
-'''
-[tool.commitizen]
-tag_format = "v$major.$minor.$patch"
+[tool.setuptools.package-data]
+"copa" = ["conf/*"]

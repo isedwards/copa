@@ -1,0 +1,14 @@
+# These files are included in the package by [tool.setuptools.package-data]
+# in pyproject.toml.
+#
+# To access these files at runtime using Python 3.9+
+
+```
+from importlib.resources import files
+
+path = files("copa") / "conf" / "install.yml"
+
+with path.open("r") as f:
+    ...
+
+```

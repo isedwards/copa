@@ -1,46 +1,45 @@
-#!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+"""copa launcher module.
 
+This module launches either the CLI or the TUI interface for copa.
+NOTE: Versions < 1.0 only support CLI
 """
-copa.py
+import logging
+import sys
 
-Configure/Orchestrate/Provision Applications
-"""
-
-# import os
-
-__author__ = 'Ian Edwards'
-__copyright__ = 'Copyright 2025, Ian Edwards'
-__license__ = 'MIT'
-
-__version__ = '0.1.0'
-__maintainer__ = 'Ian Edwards'
-__email__ = 'ian@myacorn.com'
-__status__ = 'Development'
+from copa.cli import init_cli, app as cli_app
+# from copa.tui import init_tui, app as tui_app
+from copa.core.logging import get_logging_level, setup_logging
+from copa.core.toc import ConfigLoadError, load_toc
 
 
-def add(first_term, second_term):
-    """Example trivial function which returns the sum of two numbers.
+# Setup initial logging until further config is determined
+setup_logging(verbosity=get_logging_level(sys.argv), log_to_file=None)
+logger = logging.getLogger(__name__)
 
-    Args:
-        first_term (int):  The first parameter.
-        second_term (str): The second parameter.
 
-    Returns:
-        int: The sum of the two parameters.
+def main() -> None:
+    """Entry point for Copa.
+
+    Loads configuration from toc.yml and launches the TUI if no command-line arguments 
+    are passed (i.e., only the script name is present in sys.argv). Otherwise, defaults 
+    to the CLI interface.
     """
-    sum = first_term + second_term
-    return sum
-
-
-def subtract(first_term, second_term):
-    """Example trivial function which returns the difference of two numbers.
-
-    Args:
-        first_term (int):  The first parameter.
-        second_term (str): The second parameter.
-
-    Returns:
-        int: The difference between the two parameters.
-    """
-    difference = first_term - second_term
-    return difference
+    try:
+        config = load_toc()
+        logger.debug("Configuration loaded successfully")
+    except ConfigLoadError as e:
+        logger.error(f"Failed to load configuration: {e}")
+        sys.exit(1)
+    
+    if len(sys.argv) > 1:
+        logger.debug("Launching CLI mode...")
+        init_cli(config)
+        cli_app()
+    else:
+        # logger.debug("No command-line arguments detected. Launching TUI mode...")
+        # init_tui(config)
+        # tui_app()
+        logger.debug("copa <1.0 does not support TUI. Returning CLI help instead.")
+        init_cli(config)
+        cli_app(["--help"])

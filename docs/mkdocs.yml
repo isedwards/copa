@@ -1,0 +1,58 @@
+site_name: Copa Documentation
+docs_dir: source
+site_description: Configure, Orchestrate and Provision Applications
+site_url: https://open-climate.github.io/copa_development
+
+repo_name: open-climate/copa_development
+repo_url: https://github.com/open-climate/copa_development
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - search.share
+    - content.code.copy
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: getting-started/installation.md
+    - Quick Start: getting-started/quickstart.md
+    - Configuration: getting-started/configuration.md
+  - User Guide:
+    - Commands: user-guide/commands.md
+    - Playbooks: user-guide/playbooks.md
+    - Python Functions: user-guide/python-functions.md
+  - Developer Guide:
+    - Architecture: developer-guide/architecture.md
+    - Contributing: developer-guide/contributing.md
+    - Testing: developer-guide/testing.md
+  - Reference:
+    - CLI Reference: reference/cli.md
+    - Configuration Schema: reference/configuration.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.superfences
+  - toc:
+      permalink: true
+
+plugins:
+  - search

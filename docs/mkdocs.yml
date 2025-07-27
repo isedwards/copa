@@ -1,7 +1,7 @@
 site_name: Copa Documentation
 docs_dir: source
 site_description: Configure, Orchestrate and Provision Applications
-site_url: https://open-climate.github.io/copa_development
+site_url: https://copa.openclimate.net
 
 repo_name: open-climate/copa_development
 repo_url: https://github.com/open-climate/copa_development

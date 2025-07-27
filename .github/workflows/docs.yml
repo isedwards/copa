@@ -19,10 +19,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@latest
+    - uses: actions/checkout
     
     - name: Set up Python
-      uses: actions/setup-python@latest
+      uses: actions/setup-python
       with:
         python-version: '3.11'
     
@@ -38,11 +38,11 @@ jobs:
     
     - name: Setup Pages
       if: github.ref == 'refs/heads/main'
-      uses: actions/configure-pages@latest
+      uses: actions/configure-pages
     
     - name: Upload artifact
       if: github.ref == 'refs/heads/main'
-      uses: actions/upload-pages-artifact@latest
+      uses: actions/upload-pages-artifact
       with:
         path: docs/site
 
@@ -56,4 +56,4 @@ jobs:
     steps:
     - name: Deploy to GitHub Pages
       id: deployment
-      uses: actions/deploy-pages@latest
+      uses: actions/deploy-pages

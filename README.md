@@ -9,23 +9,23 @@ Configure, Orchestrate and Provision Applications
 
 ## About
 
-`copa` is a single codebase, implemented using the Python Typer and Textual packages, that provides a Command Line Interface (CLI), Text User Interface (TUI) and Web UI for [provisioning](https://www.redhat.com/en/topics/automation/what-is-provisioning) (Terraform), [orchestrating](https://www.redhat.com/en/topics/automation/what-is-orchestration) (Ansible) and configuring software on Linux servers.
+`copa` is a single codebase, implemented using the Python Typer and Textual packages, that provides a Command Line Interface (CLI), Text User Interface (TUI) and Web UI for provisioning, orchestrating and configuring software on Linux servers.
 
 `copa` is aware of environments that it can install to including:
-1. Provisioning
+1. [Provisioning](https://www.redhat.com/en/topics/automation/what-is-provisioning) (Terraform)
     - Infrastructure Providers (e.g. Locally [Proxmox](https://github.com/Telmate/terraform-provider-proxmox) or [VMWare](https://registry.terraform.io/providers/hashicorp/vsphere/latest). Remote: Amazon Web Services, Google Cloud Platform etc. see [supported providers](https://registry.terraform.io/search/providers))
-2. Orchestrating
+2. [Orchestrating](https://www.redhat.com/en/topics/automation/what-is-orchestration) (Ansible)
     - Linux servers (VMs, cloud instances) 
-3. Configuration Management
+3. [Configuration Management](https://www.redhat.com/en/topics/automation/what-is-configuration-management) (Ansible)
     - Modifing configuration for nginx, django etc.
 
-`copa` attempts to be as minimal as reasonably possible to make auditing easier.
+`copa` attempts to be as minimal and extensible as possible.
 
 ## Installation
 
 ### For Users
 
-Install from the Python Package Index (PyPI)
+To install from the Python Package Index (PyPI), first install [pipx](https://pipx.pypa.io/stable/installation/#installing-pipx), then:
 
 ```bash
 pipx install copa
@@ -37,34 +37,10 @@ Developers may wish to clone the latest version from GitHub and install this loc
 
 ```bash
 git clone https://github.com/open-climate/copa.git
-pip install -e .[dev]
+pip install -e .[dev,docs]
 ```
 
-### Running Tests
-
-To run all tests:
-
-```bash
-pytest
-```
-
-To run tests with verbose output:
-
-```bash
-pytest -v
-```
-
-To run a specific test file:
-
-```bash
-pytest tests/test_register_commands.py
-```
-
-To run a specific test:
-
-```bash
-pytest tests/test_register_commands.py::test_register_commands_with_help_text
-```
+To execute all tests run: `pytest`
 
 ---
 *Powered by:*

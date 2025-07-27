@@ -44,6 +44,7 @@ nav:
     - Architecture: developer-guide/architecture.md
     - Contributing: developer-guide/contributing.md
     - Testing: developer-guide/testing.md
+    - Publishing: developer-guide/publishing.md
   - Reference:
     - CLI Reference: reference/cli.md
     - Configuration Schema: reference/configuration.md

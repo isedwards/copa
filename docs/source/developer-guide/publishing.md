@@ -6,8 +6,20 @@ This guide covers how to publish copa releases to the Python Package Index (PyPI
 
 1. **PyPI Account**: Create an account at [pypi.org](https://pypi.org)
 2. **API Token**: Generate an API token in your PyPI account settings
-3. **Configure Twine**: Run `python -m twine configure` to set up authentication
+3. **Configure Twine**: Set up authentication by creating a `.pypirc` file in your home directory or by using environment variables. For example:
 
+   - **Using `.pypirc` file**:
+     ```ini
+     [pypi]
+     username = __token__
+     password = your-api-token
+     ```
+
+   - **Using environment variables**:
+     ```bash
+     export TWINE_USERNAME="__token__"
+     export TWINE_PASSWORD="your-api-token"
+     ```
 ## Development Dependencies
 
 Install the required build and publishing tools:

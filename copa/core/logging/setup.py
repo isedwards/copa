@@ -30,7 +30,7 @@ Note:
 import argparse
 import logging
 from pathlib import Path
-from typing import Optional
+from typing import List, Optional
 
 from copa import get_or_create_config_path, TOOL_NAME
 
@@ -62,7 +62,7 @@ def setup_logging(verbosity: int = logging.ERROR, log_to_file: Optional[Path] = 
     console_level = verbosity
     
     # Create handlers list
-    handlers: list[logging.Handler] = []
+    handlers: List[logging.Handler] = []
     
     if log_to_file is None:
         # Console handler only
